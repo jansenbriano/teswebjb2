@@ -714,10 +714,21 @@
             });
 
             document.addEventListener('DOMContentLoaded', function() {
-                var ua = navigator.userAgent.toLowerCase();
-                if (ua.indexOf('android') > -1 && ua.indexOf('chrome') > -1) {
-                    document.documentElement.classList.add('ua-android', 'ua-chrome');
-                }
+              // Detect Android Chrome
+              var ua = navigator.userAgent.toLowerCase();
+              var isAndroid = ua.indexOf('android') > -1;
+              var isChrome = ua.indexOf('chrome') > -1;
+              
+              // Check if likely in desktop mode (approximate detection)
+              var isDesktopMode = window.innerWidth >= 768 && isAndroid && isChrome;
+              
+              if (isDesktopMode) {
+                // Add a specific class we can target
+                document.documentElement.classList.add('android-chrome-desktop');
+                
+                // Alternatively, apply the style directly
+                document.querySelector('main').style.fontSize = '5.5px';
+              }
             });
             
             // Close menu when scrolling
