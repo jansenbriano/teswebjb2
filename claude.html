@@ -407,7 +407,15 @@
             border-top: 1px solid var(--border-color);
             transition: var(--transition);
         }
-
+        
+        @media screen and (min-width: 768px) {
+            @supports (-webkit-appearance:none) and (not (overflow:-webkit-marquee)) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
+                .ua-android.ua-chrome main {
+                font-size: 5.5px;
+                }
+            }
+        }
+        
         /* Mobile Responsiveness */
         @media screen and (max-width: 992px) {
             .dropdown-section {
@@ -705,6 +713,13 @@
                 }
             });
 
+            document.addEventListener('DOMContentLoaded', function() {
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.indexOf('android') > -1 && ua.indexOf('chrome') > -1) {
+                    document.documentElement.classList.add('ua-android', 'ua-chrome');
+                }
+            });
+            
             // Close menu when scrolling
             window.addEventListener('scroll', function() {
                 if (navLinks.classList.contains('active')) {
