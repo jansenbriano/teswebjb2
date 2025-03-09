@@ -409,10 +409,8 @@
         }
         
         @media screen and (min-width: 768px) {
-            @supports (-webkit-appearance:none) and (not (overflow:-webkit-marquee)) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
-                .ua-android.ua-chrome main {
-                    font-size: 5.5px;
-                }
+            html.ua-android.ua-chrome main {
+                font-size: 5.5px !important;
             }
         }
         
@@ -712,22 +710,35 @@
                     megaDropdown.style.display = 'none';
                 }
             });
-
             // Detect Android Chrome
             const ua = navigator.userAgent.toLowerCase();
             const isAndroid = ua.indexOf('android') > -1;
             const isChrome = ua.indexOf('chrome') > -1;
               
-            // Check if likely in desktop mode (approximate detection)
-            const isDesktopMode = window.innerWidth >= 768 && isAndroid && isChrome;
-            
-            if (isDesktopMode) {
-              // Add a specific class we can target
-              document.documentElement.classList.add('android-chrome-desktop');
+            if (isAndroid && isChrome) {
+              // Add the classes to the HTML element
+              document.documentElement.classList.add('ua-android', 'ua-chrome');
               
-              // Alternatively, apply the style directly
-              document.querySelector('main').style.fontSize = '5.5px';
+              // For immediate effect, also apply directly
+              if (window.innerWidth >= 768) {
+                document.querySelector('main').style.fontSize = '5.5px';
+              }
             }
+            // // Detect Android Chrome
+            // const ua = navigator.userAgent.toLowerCase();
+            // const isAndroid = ua.indexOf('android') > -1;
+            // const isChrome = ua.indexOf('chrome') > -1;
+              
+            // // Check if likely in desktop mode (approximate detection)
+            // const isDesktopMode = window.innerWidth >= 768 && isAndroid && isChrome;
+            
+            // if (isDesktopMode) {
+            //   // Add a specific class we can target
+            //   document.documentElement.classList.add('android-chrome-desktop');
+              
+            //   // Alternatively, apply the style directly
+            //   document.querySelector('main').style.fontSize = '5.5px';
+            // }
             
             
             // Close menu when scrolling
